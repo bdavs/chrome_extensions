@@ -107,6 +107,7 @@ function doVoteThings(votes) {
   votes=parseInt(votes)+1;
  chrome.storage.sync.set({'votes':votes}, function() {
        // Notify that we saved.
+       chrome.runtime.lastError ? alert("Error: " + chrome.runtime.lastError) : null
     //   alert(votes + '  Settings saved');
  });
 
@@ -119,8 +120,8 @@ document.addEventListener('DOMContentLoaded', () => {
     var newWindow = document.getElementById('newWindow');
     var upvote = document.getElementById('upvote');
     var dropdown = document.getElementById('dropdown');
+    var colorCode = document.getElementById("colorCode");
     var votes = Number();
-
 
 //    alert("This is a webpage at "+url);
 
@@ -158,9 +159,12 @@ document.addEventListener('DOMContentLoaded', () => {
     newWindow.addEventListener('click', () => {
         openNewWindow();
     });
-
+var    color="pink";
+document.body.style.backgroundColor=color;
     // Ensure the background color is changed and saved when the dropdown
     // selection changes.
+
+    
     newTab.addEventListener('click', () => {
         openNewTab();
       });
