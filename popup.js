@@ -121,14 +121,22 @@ document.addEventListener('DOMContentLoaded', () => {
     var upvote = document.getElementById('upvote');
     var dropdown = document.getElementById('dropdown');
     var colorCode = document.getElementById("colorCode");
+   // var colorSubmit = document.getElementById("colorSubmit");
     var votes = Number();
 
 //    alert("This is a webpage at "+url);
 
     //runs once
     chrome.storage.sync.get('votes', function(results){
-        votes = parseInt(results.votes);
-        document.getElementById('upvoteLabel').innerHTML = votes
+        //alert(results.votes);
+        if(!!results.votes){
+            votes = parseInt(results.votes);
+            document.getElementById('upvoteLabel').innerHTML = votes;
+        }
+        else{
+            votes = 0;
+            document.getElementById('upvoteLabel').innerHTML = votes;
+        }
     });
 
 //runs on changed votes
@@ -138,7 +146,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if(item == "votes"){
 //                alert(changes[item].oldValue + " --> " + changes[item].newValue);
                 votes = changes[item].newValue;
-                document.getElementById('upvoteLabel').innerHTML = votes
+                document.getElementById('upvoteLabel').innerHTML = votes;
             }
         }
     });
@@ -159,11 +167,12 @@ document.addEventListener('DOMContentLoaded', () => {
     newWindow.addEventListener('click', () => {
         openNewWindow();
     });
-var    color="pink";
-document.body.style.backgroundColor=color;
-    // Ensure the background color is changed and saved when the dropdown
-    // selection changes.
-
+  
+    colorCode.addEventListener('change', () => {
+        var color=colorCode.value; 
+        //alert(color);
+        document.body.style.backgroundColor=color;
+    });
     
     newTab.addEventListener('click', () => {
         openNewTab();
